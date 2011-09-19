@@ -74,8 +74,7 @@ module Middleman
                 data["raw"].match(/(.{1,#{app.settings.blog_summary_length}}.*?)(\n|\Z)/m).to_s
               end
 
-              engine = app.settings.markdown_engine.new { sum }
-              data["summary"] = engine.render
+              data["summary"] = Tilt['md'].new { sum }.render
               data
             end.sort { |a, b| b["date"] <=> a["date"] }
 
